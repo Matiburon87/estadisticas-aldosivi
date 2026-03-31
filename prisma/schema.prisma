@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id          String   @id @default(cuid())
+  nombre      String
+  posicion    String
+  edad        Int?
+  altura      String?
+  peso        String?
+  perfil      String?
+  keyPlayer   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  matchStats  PlayerMatchStat[]
+}
+
+model Match {
+  id          String   @id @default(cuid())
+  fecha       DateTime
+  rival       String
+  resultado   String?
+  tipo        String   // Local, Visitante
+  competencia String   // Liga, Copa Argentina
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  squadStat   SquadMatchStat?
+  playerStats PlayerMatchStat[]
+}
+
+model SquadMatchStat {
+  id             String   @id @default(cuid())
+  matchId        String   @unique
+  match          Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  
+  goles          Float?
+  tirosPuerta    Float?
+  posesion       Float?
+  precisionPases Float?
+  duelosGanados  Float?
+  entradasGanadas Float?
+  faltas         Float?
+  porteriaCero   Boolean  @default(false)
+
+  // Radar Stats
+  ataque         Float?
+  defensa        Float?
+  finalizacion   Float?
+  fisico         Float?
+}
+
+model PlayerMatchStat {
+  id          String   @id @default(cuid())
+  playerId    String
+  matchId     String
+  player      Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  match       Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  rating      Float?
+  minutos     Int?
+  goles       Int      @default(0)
+  asistencias Int      @default(0)
+
+  @@unique([playerId, matchId])
+}
