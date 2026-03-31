@@ -1,10 +1,21 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
 // @ts-ignore
 import PDFParser from "pdf2json";
 
 export async function POST(req: Request) {
   try {
+    // 🔒 Protección: solo el administrador puede subir PDFs
+    const uploadSecret = process.env.UPLOAD_SECRET;
+    if (uploadSecret) {
+      const authHeader = req.headers.get("x-upload-secret");
+      if (authHeader !== uploadSecret) {
+        return NextResponse.json(
+          { error: "No autorizado. Se requiere clave de administrador." },
+          { status: 401 }
+        );
+      }
+    }
+
     const formData = await req.formData();
     const file = formData.get("file") as File;
 
@@ -71,6 +82,7 @@ export async function POST(req: Request) {
     }
     
     // Create Match en la Base de Datos usando Prisma
+    const { db } = await import("@/lib/db");
     const newMatch = await db.match.create({
       data: {
         fecha: new Date(),
