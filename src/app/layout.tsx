@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   keywords: ["Aldosivi", "Liga Profesional de Fútbol", "AFA", "Estadísticas", "Fútbol Argentino", "Mar del Plata"],
   authors: [{ name: "Club Atlético Aldosivi" }],
   icons: {
-    icon: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Aldosivi_logo.png",
+    icon: "/escudo-aldosivi.png",
   },
   openGraph: {
     title: "C.A. Aldosivi - Data Hub",

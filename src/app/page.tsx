@@ -280,7 +280,7 @@ export default function AldosiviDashboard() {
                 </Badge>
               </div>
               <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight flex items-center gap-3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Aldosivi_logo.png" alt="C.A. Aldosivi" className="w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-md" />
+                <img src="/escudo-aldosivi.png" alt="C.A. Aldosivi" className="w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-md" />
                 {clubData.nombre}
               </h1>
               <p className="text-yellow-100/80 text-lg flex items-center gap-2">
