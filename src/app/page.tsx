@@ -89,17 +89,17 @@ const promediosData = [
   { puesto: 26, equipo: "Newell's", promedio: 1.047, pj: 84, pts: 88, estado: "alerta" },
   { puesto: 27, equipo: "Sarmiento", promedio: 0.988, pj: 84, pts: 83, estado: "peligro" },
   { puesto: 28, equipo: "Aldosivi", promedio: 0.886, pj: 44, pts: 39, estado: "critico" },
-  { puesto: 29, equipo: "Gimnasia (M)", promedio: 0.818, pj: 11, pts: 9, estado: "descenso" },
-  { puesto: 30, equipo: "Estudiantes RC", promedio: 0.363, pj: 11, pts: 4, estado: "descenso" }
+  { puesto: 29, equipo: "Gimnasia (M)", promedio: 0.833, pj: 12, pts: 10, estado: "descenso" },
+  { puesto: 30, equipo: "Estudiantes RC", promedio: 0.416, pj: 12, pts: 5, estado: "descenso" }
 ]
 
 // Tabla Anual de Descenso (General) - 2026 en curso (~10-11 fechas)
 // Tabla Anual actualizada al 04/04/2026 (Fecha 12 de liga jugada)
 const tablaAnualData = [
   { puesto: 25, equipo: "Banfield", pj: 12, difGol: -3, pts: 11, estado: "seguro" },
-  { puesto: 26, equipo: "Gimnasia (M)", pj: 12, difGol: -5, pts: 10, estado: "alerta" },
-  { puesto: 27, equipo: "Sarmiento", pj: 12, difGol: -6, pts: 9, estado: "peligro" },
-  { puesto: 28, equipo: "Dep. Riestra", pj: 12, difGol: -5, pts: 8, estado: "peligro" },
+  { puesto: 26, equipo: "Atlético Tucumán", pj: 12, difGol: -4, pts: 9, estado: "alerta" },
+  { puesto: 27, equipo: "Newell's", pj: 12, difGol: -5, pts: 9, estado: "peligro" },
+  { puesto: 28, equipo: "Dep. Riestra", pj: 12, difGol: -6, pts: 7, estado: "peligro" },
   { puesto: 29, equipo: "Aldosivi", pj: 12, difGol: -10, pts: 6, estado: "critico" },
   { puesto: 30, equipo: "Estudiantes RC", pj: 12, difGol: -10, pts: 5, estado: "descenso" }
 ]
@@ -384,9 +384,9 @@ export default function AldosiviDashboard() {
               <div className="flex items-start gap-4">
                 <AlertCircle className="w-8 h-8 text-red-400 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg font-bold text-red-300">ALERTA MÁXIMA: Zona de Descenso Directo (13 PJ)</h3>
+                  <h3 className="text-lg font-bold text-red-300">ALERTA MÁXIMA: Zona de Descenso Directo (12 PJ)</h3>
                   <p className="text-green-100 mt-2">
-                    Aldosivi ocupa el <strong className="text-red-400">puesto 29º de 30</strong> en la tabla anual con <strong className="text-yellow-400">6 puntos en 13 PJ</strong> y
+                    Aldosivi ocupa el <strong className="text-red-400">puesto 29º de 30</strong> en la tabla anual con <strong className="text-yellow-400">6 puntos en 12 PJ</strong> y
                     un promedio histórico de <strong className="text-white">{clubData.promedioDescenso}</strong>.
                     Bajo Damonte (debut 31/03): derrota 0-2 vs Argentinos Jrs y empate 0-0 con Estudiantes RC
                     (Zalazar expulsado). Solo <strong className="text-red-400">0 goles en los últimos 5 partidos de liga</strong> —
@@ -791,8 +791,8 @@ export default function AldosiviDashboard() {
                   <p className="text-green-100 text-sm">
                     Superar a <strong className="text-white">Sarmiento</strong> (promedio 0.988) - 
                     diferencia de solo <strong className="text-yellow-400">0.084 puntos</strong>.
-                    Esperar que <strong className="text-white">Gimnasia Mendoza</strong> no encadene victorias 
-                    (promedio muy volátil por pocos partidos).
+                    Esperar que <strong className="text-white">Gimnasia Mendoza</strong> (si es que la tabla varía) no encadene victorias, 
+                    ya que los promedios de los recién ascendidos son muy volátiles por pocos partidos.
                   </p>
                 </CardContent>
               </Card>
