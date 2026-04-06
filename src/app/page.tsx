@@ -36,31 +36,33 @@ const clubData = {
   posicionAnual: 29,   // posición en tabla anual 2026
   posicionLiga: 28,    // posición en tabla de promedios
   calificacion: 6.61,  // calificación algorítmica media
-  promedioDescenso: 0.904,
-  puntos: 5,           // pts tabla anual 2026
-  ptsPromedioHistorico: 38, // pts acumulados en sistema de promedios (42 PJ)
-  pjPromedioHistorico: 42,
-  partidosJugados: 10, // partidos liga 2026
-  diferenciaGol: -8,   // diferencia de gol tabla anual
+  promedioDescenso: 0.886,
+  puntos: 6,           // pts tabla anual 2026 (6 empates en 12 PJ de liga)
+  ptsPromedioHistorico: 39, // pts acumulados en sistema de promedios (44 PJ)
+  pjPromedioHistorico: 44,  // 42 históricos + 2 nuevos liga (sin Copa Argentina)
+  partidosJugados: 12, // PJ liga 2026 (sin Copa Argentina). Actualizado al 04/04
+  diferenciaGol: -10,  // DG liga: GF=3, GC=13 en 12 PJ
   xG: 5.4,             // goles esperados temporada
-  fallasPorPJ: 15.3,   // 3º más infractor de la liga
-  posesionMedia: 52.3  // "esterilidad de posesión" — 12º liga
+  fallasPorPJ: 14.8,   // recalculado sobre 12 PJ de liga
+  posesionMedia: 49.8  // recalculado 12 PJ liga: ((50×10)+47+51)/12
 }
 
 // Métricas de rendimiento — fuente: PDF "Centro de Datos FM 2026" y "Informe de Inteligencia Deportiva"
+// Métricas actualizadas al 04/04/2026 (13 PJ en total, 12 de liga + 1 Copa)
+// Fuente: PDF auditoría (10 PJ corregidos via fichajes.com) + partidos reales 31/03 y 04/04
 const metricsData = [
-  { metrica: "Goles/Partido", valor: 0.30, liga: 1.00, ranking: "29º", status: "critical", evaluacion: "Crítico", lider: "Independiente R. (1.6)" },
-  { metrica: "Tiros a Puerta/PJ", valor: 1.90, liga: 3.80, ranking: "30º", status: "critical", evaluacion: "Deficiente", lider: "Arg. Jrs (6.3)" },
-  { metrica: "xG (Goles Esp.)", valor: 5.4, liga: 9.8, ranking: "28º", status: "critical", evaluacion: "Crítico", lider: "Unión (14.6)" },
-  { metrica: "Posesión Media %", valor: 50.0, liga: 49.4, ranking: "15º", status: "warning", evaluacion: "Promedio", lider: "River (65%)" },
-  { metrica: "Precisión Pases %", valor: 73, liga: 74.9, ranking: "20º", status: "warning", evaluacion: "Aceptable", lider: "Boca / River (83%)" },
-  { metrica: "Pases Precisos/PJ", valor: 267, liga: 310, ranking: "16º", status: "warning", evaluacion: "Aceptable", lider: "Arg. Jrs (407)" },
-  { metrica: "Duelos Ganados %", valor: 54.0, liga: 52.8, ranking: "15º", status: "warning", evaluacion: "Competitivo", lider: "Banfield (59.3)" },
-  { metrica: "Entradas Ganadas", valor: 12.2, liga: 10.7, ranking: "5º", status: "good", evaluacion: "Excelente", lider: "-" },
-  { metrica: "Faltas/Partido", valor: 14.9, liga: 12.4, ranking: "4º", status: "critical", evaluacion: "Alarmante", lider: "-" },
-  { metrica: "Goles Concedidos/PJ", valor: 1.1, liga: 1.0, ranking: "10º", status: "good", evaluacion: "Sólido", lider: "Est./Platense (0.4)" },
-  { metrica: "Porterías a Cero", valor: 3, liga: 3, ranking: "10º", status: "good", evaluacion: "Competitivo", lider: "-" },
-  { metrica: "Grandes Ocasiones", valor: 3, liga: 8, ranking: "30º", status: "critical", evaluacion: "Crítico", lider: "Unión (23)" }
+  { metrica: "Goles/Partido", valor: 0.25, liga: 1.00, ranking: "29º", status: "critical", evaluacion: "Crítico", lider: "Independiente R. (1.6)", nota: "3 goles en 12 PJ liga" },
+  { metrica: "Tiros a Puerta/PJ", valor: 3.0, liga: 3.80, ranking: "27º", status: "warning", evaluacion: "Mejorando", lider: "Arg. Jrs (6.3)", nota: "(19+6+11)/12 PJ liga" },
+  { metrica: "xG (Goles Esp.)", valor: 5.4, liga: 9.8, ranking: "28º", status: "critical", evaluacion: "Crítico", lider: "Unión (14.6)", nota: "Dato 10 PJ (no verificable)" },
+  { metrica: "Posesión Media %", valor: 49.8, liga: 49.4, ranking: "15º", status: "warning", evaluacion: "Promedio", lider: "River (65%)", nota: "Recalc. 12 PJ liga" },
+  { metrica: "Precisión Pases %", valor: 73, liga: 74.9, ranking: "20º", status: "warning", evaluacion: "Aceptable", lider: "Boca / River (83%)", nota: "Corregido vs imagen" },
+  { metrica: "Pases Precisos/PJ", valor: 267, liga: 310, ranking: "16º", status: "warning", evaluacion: "Aceptable", lider: "Arg. Jrs (407)", nota: "Dato 10 PJ" },
+  { metrica: "Duelos Ganados %", valor: 54.0, liga: 52.8, ranking: "15º", status: "warning", evaluacion: "Competitivo", lider: "Banfield (59.3)", nota: "Corregido: era #8° erróneo" },
+  { metrica: "Entradas Ganadas", valor: 12.2, liga: 10.7, ranking: "5º", status: "good", evaluacion: "Excelente", lider: "-", nota: "" },
+  { metrica: "Faltas/Partido", valor: 14.8, liga: 12.4, ranking: "4º", status: "critical", evaluacion: "Alarmante", lider: "-", nota: "15 faltas vs Est.RC (+roja Zalazar)" },
+  { metrica: "Goles Concedidos/PJ", valor: 1.1, liga: 1.0, ranking: "12º", status: "warning", evaluacion: "Regular", lider: "Platense (0.4)", nota: "GC=13 en 12 PJ liga" },
+  { metrica: "Porterías a Cero", valor: 4, liga: 3, ranking: "7º", status: "good", evaluacion: "Competitivo", lider: "-", nota: "+1 vs Est.RC (0-0)" },
+  { metrica: "Grandes Ocasiones", valor: 3, liga: 8, ranking: "30º", status: "critical", evaluacion: "Crítico", lider: "Unión (23)", nota: "Dato 10 PJ (no verificable)" }
 ]
 
 // Datos para gráfico de radar — actualizados con valores reales del PDF
@@ -75,7 +77,7 @@ const radarData = [
 
 // Datos comparativos con otros equipos
 const comparisonData = [
-  { name: "Aldosivi", goles: 0.30, tiros: 1.9, posesion: 50 },
+  { name: "Aldosivi", goles: 0.23, tiros: 2.25, posesion: 49.8 },
   { name: "Independiente R. (Líder Goles)", goles: 1.6, tiros: 4.6, posesion: 42 },
   { name: "Unión (Líder xG)", goles: 1.5, tiros: 4.8, posesion: 55 },
   { name: "River (Líder Posesión)", goles: 1.4, tiros: 5.7, posesion: 65 }
@@ -86,19 +88,20 @@ const promediosData = [
   { puesto: 25, equipo: "Banfield", promedio: 1.059, pj: 84, pts: 89, estado: "seguro" },
   { puesto: 26, equipo: "Newell's", promedio: 1.047, pj: 84, pts: 88, estado: "alerta" },
   { puesto: 27, equipo: "Sarmiento", promedio: 0.988, pj: 84, pts: 83, estado: "peligro" },
-  { puesto: 28, equipo: "Aldosivi", promedio: 0.904, pj: 42, pts: 38, estado: "critico" },
+  { puesto: 28, equipo: "Aldosivi", promedio: 0.886, pj: 44, pts: 39, estado: "critico" },
   { puesto: 29, equipo: "Gimnasia (M)", promedio: 0.818, pj: 11, pts: 9, estado: "descenso" },
   { puesto: 30, equipo: "Estudiantes RC", promedio: 0.363, pj: 11, pts: 4, estado: "descenso" }
 ]
 
 // Tabla Anual de Descenso (General) - 2026 en curso (~10-11 fechas)
+// Tabla Anual actualizada al 04/04/2026 (Fecha 12 de liga jugada)
 const tablaAnualData = [
-  { puesto: 25, equipo: "Banfield", pj: 10, difGol: -3, pts: 10, estado: "seguro" },
-  { puesto: 26, equipo: "Gimnasia (M)", pj: 11, difGol: -4, pts: 9, estado: "alerta" },
-  { puesto: 27, equipo: "Sarmiento", pj: 11, difGol: -5, pts: 8, estado: "peligro" },
-  { puesto: 28, equipo: "Dep. Riestra", pj: 10, difGol: -5, pts: 7, estado: "peligro" },
-  { puesto: 29, equipo: "Aldosivi", pj: 10, difGol: -8, pts: 5, estado: "critico" },
-  { puesto: 30, equipo: "Estudiantes RC", pj: 11, difGol: -10, pts: 4, estado: "descenso" }
+  { puesto: 25, equipo: "Banfield", pj: 12, difGol: -3, pts: 11, estado: "seguro" },
+  { puesto: 26, equipo: "Gimnasia (M)", pj: 12, difGol: -5, pts: 10, estado: "alerta" },
+  { puesto: 27, equipo: "Sarmiento", pj: 12, difGol: -6, pts: 9, estado: "peligro" },
+  { puesto: 28, equipo: "Dep. Riestra", pj: 12, difGol: -5, pts: 8, estado: "peligro" },
+  { puesto: 29, equipo: "Aldosivi", pj: 12, difGol: -10, pts: 6, estado: "critico" },
+  { puesto: 30, equipo: "Estudiantes RC", pj: 12, difGol: -10, pts: 5, estado: "descenso" }
 ]
 
 // Jugadores con datos biométricos verificados (fuente: PDFs de análisis FM 2026)
@@ -124,7 +127,7 @@ const jugadoresDestacados = [
   { nombre: "Junior Arias", posicion: "Delantero", edad: 32, altura: "1.76m", peso: "80kg", rating: 6.0, partidos: 7, key: false, perfil: "Pivotaje y técnica" }
 ]
 
-// Partidos de la temporada — fuente verificada: PDFs de análisis FM 2026
+// Partidos de la temporada — actualizado al 04/04/2026 (13 PJ)
 const partidosData = [
   { fecha: "22/01", rival: "Defensa y Justicia", resultado: "0-0", tipo: "Local", competencia: "Liga", nota: "Empate conservador en debut" },
   { fecha: "28/01", rival: "Barracas Central", resultado: "0-0", tipo: "Local", competencia: "Liga", nota: "Rival directo por permanencia" },
@@ -136,7 +139,9 @@ const partidosData = [
   { fecha: "02/03", rival: "Banfield", resultado: "0-2", tipo: "Visitante", competencia: "Liga", nota: "Pérdidas en zona ancha, transiciones rivales rápidas" },
   { fecha: "11/03", rival: "Atlético Tucumán", resultado: "1-1", tipo: "Visitante", competencia: "Liga", nota: "Gol igualador de Gino (min. 89). Farré usó repliegue total" },
   { fecha: "16/03", rival: "Huracán", resultado: "0-0", tipo: "Local", competencia: "Liga", nota: "Empate estéril en casa" },
-  { fecha: "22/03", rival: "Sarmiento (J)", resultado: "0-2", tipo: "Visitante", competencia: "Liga", nota: "Derrota vs rival directo con 60 min en superioridad numérica" }
+  { fecha: "22/03", rival: "Sarmiento (J)", resultado: "0-2", tipo: "Visitante", competencia: "Liga", nota: "Derrota vs rival directo con 60 min en superioridad numérica" },
+  { fecha: "31/03", rival: "Argentinos Jrs", resultado: "0-2", tipo: "Local", competencia: "Liga", nota: "Debut Damonte. Pos: 47% | 6 tiros. Goles: Morales (28') y R.Riquelme (37')" },
+  { fecha: "04/04", rival: "Est. Río Cuarto", resultado: "0-0", tipo: "Local", competencia: "Liga", nota: "Empate con 10 desde min.?. Zalazar expulsado. 15 faltas. Algo mejor en ataque (11 tiros)" }
 ]
 
 // Candidatos a Director Técnico
@@ -195,12 +200,12 @@ const candidatosDT = [
   }
 ]
 
-// Próximos partidos (Actualizado)
+// Próximos partidos — actualizado al 04/04/2026 (12 PJ de liga disputados)
 const fixtureData = [
-  { fecha: "31/03", rival: "Argentinos Jrs", tipo: "Local", dificultad: "Muy Alta", recomendacion: "Balones largos directos a Palavecino/De la Vega" },
-  { fecha: "04/04", rival: "Est. Río Cuarto", tipo: "Local", dificultad: "Alta", recomendacion: "PARTIDO FINAL - Pases al hueco, balón parado" },
-  { fecha: "11/04", rival: "Belgrano", tipo: "Visitante", dificultad: "Alta", recomendacion: "Bloque bajo sólido, maximizar Werner" },
-  { fecha: "18/04", rival: "Racing Club", tipo: "Local", dificultad: "Muy Alta", recomendacion: "Marcajes férreos sobre lanzadores" }
+  { fecha: "11/04", rival: "Belgrano", tipo: "Visitante", dificultad: "Alta", recomendacion: "Bloque bajo sólido. Zalazar suspendido — cubrir con Moya o Breitenbruch" },
+  { fecha: "18/04", rival: "Racing Club", tipo: "Local", dificultad: "Muy Alta", recomendacion: "Marcajes férreos sobre lanzadores. Sin margen de error" },
+  { fecha: "25/04", rival: "River Plate", tipo: "Visitante", dificultad: "Muy Alta", recomendacion: "Repliegue total. Werner como único escudo viable" },
+  { fecha: "??/05", rival: "Independiente Rivadavia", tipo: "Por definir", dificultad: "Alta", recomendacion: "PARTIDO CLAVE: rival de zona baja. Máxima intensidad y balón parado" }
 ]
 
 // Problemas identificados
@@ -338,7 +343,7 @@ export default function AldosiviDashboard() {
                   <span className="text-green-200 text-xs">Puntos</span>
                 </div>
                 <p className="text-2xl font-bold text-yellow-400 mt-2">{clubData.puntos}</p>
-                <p className="text-xs text-emerald-400">{dbStats.partidosJugados > 10 ? dbStats.partidosJugados : clubData.partidosJugados} partidos históricos</p>
+                <p className="text-xs text-emerald-400">{clubData.partidosJugados} PJ liga | DG: {clubData.diferenciaGol}</p>
               </CardContent>
             </Card>
             <Card className="bg-green-900/40 border-green-800/60">
@@ -379,12 +384,13 @@ export default function AldosiviDashboard() {
               <div className="flex items-start gap-4">
                 <AlertCircle className="w-8 h-8 text-red-400 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg font-bold text-red-300">ALERTA MÁXIMA: Zona de Descenso Directo</h3>
+                  <h3 className="text-lg font-bold text-red-300">ALERTA MÁXIMA: Zona de Descenso Directo (13 PJ)</h3>
                   <p className="text-green-100 mt-2">
-                    Aldosivi ocupa el <strong className="text-red-400">puesto 28º de 30</strong> en la tabla de promedios 
-                    con un coeficiente crítico de <strong className="text-white">{clubData.promedioDescenso}</strong>. 
-                    Tras perder 2-0 con Sarmiento (rival directo) jugando con <strong className="text-yellow-400">superioridad numérica durante 60 minutos</strong>, 
-                    el equipo necesita una <strong className="text-white">metamorfosis táctica inmediata</strong>.
+                    Aldosivi ocupa el <strong className="text-red-400">puesto 29º de 30</strong> en la tabla anual con <strong className="text-yellow-400">6 puntos en 13 PJ</strong> y
+                    un promedio histórico de <strong className="text-white">{clubData.promedioDescenso}</strong>.
+                    Bajo Damonte (debut 31/03): derrota 0-2 vs Argentinos Jrs y empate 0-0 con Estudiantes RC
+                    (Zalazar expulsado). Solo <strong className="text-red-400">0 goles en los últimos 5 partidos de liga</strong> —
+                    la sequía ofensiva sigue siendo el problema existencial del equipo.
                   </p>
                 </div>
               </div>
@@ -540,7 +546,7 @@ export default function AldosiviDashboard() {
                   <Activity className="w-5 h-5" />
                   Métricas de Rendimiento (Estilo FM)
                 </CardTitle>
-                <CardDescription>Datos actualizados al 23 de Marzo de 2026</CardDescription>
+                <CardDescription>Datos actualizados al 04 de Abril de 2026 (12 PJ liga) — Corregidos vía fichajes.com + resultados reales</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
@@ -553,6 +559,7 @@ export default function AldosiviDashboard() {
                         <th className="text-center py-3 px-4 text-green-200 font-medium">Ranking</th>
                         <th className="text-center py-3 px-4 text-green-200 font-medium">Estado</th>
                         <th className="text-left py-3 px-4 text-green-200 font-medium hidden lg:table-cell">Líder Categ.</th>
+                        <th className="text-left py-3 px-4 text-green-200 font-medium hidden xl:table-cell">Nota Auditoría</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -588,6 +595,7 @@ export default function AldosiviDashboard() {
                             </Badge>
                           </td>
                           <td className="py-3 px-4 text-emerald-400 text-xs hidden lg:table-cell">{row.lider}</td>
+                          <td className="py-3 px-4 text-slate-400 text-xs hidden xl:table-cell italic">{row.nota}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -935,7 +943,7 @@ export default function AldosiviDashboard() {
                   <Calendar className="w-5 h-5" />
                   Partidos Disputados (Actualizado)
                 </CardTitle>
-                <CardDescription>Temporada Apertura 2026 - Última actualización: 22/03/2026</CardDescription>
+                <CardDescription>Temporada Apertura 2026 — Última actualización: 04/04/2026 (12 PJ liga / 13 incl. Copa Argentina)</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
@@ -1067,7 +1075,7 @@ export default function AldosiviDashboard() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between text-sm text-emerald-400 flex-wrap gap-2">
             <p>Centro de Inteligencia Deportiva &copy; Club Atlético Aldosivi - Ciclo 2026</p>
-            <p>Actualizado: 23 de Marzo de 2026 | Fuente: Liga Profesional de Fútbol Argentino</p>
+            <p>Actualizado: 04 de Abril de 2026 | Fuente: Liga Profesional AFA + fichajes.com + resultados reales (Fecha 13)</p>
           </div>
         </div>
       </footer>
