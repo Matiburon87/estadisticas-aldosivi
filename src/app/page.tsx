@@ -85,12 +85,12 @@ const comparisonData = [
 
 // Tabla de Promedios de Descenso
 const promediosData = [
-  { puesto: 25, equipo: "Banfield", promedio: 1.059, pj: 84, pts: 89, estado: "seguro" },
-  { puesto: 26, equipo: "Newell's", promedio: 1.047, pj: 84, pts: 88, estado: "alerta" },
-  { puesto: 27, equipo: "Sarmiento", promedio: 0.988, pj: 84, pts: 83, estado: "peligro" },
-  { puesto: 28, equipo: "Aldosivi", promedio: 0.886, pj: 44, pts: 39, estado: "critico" },
-  { puesto: 29, equipo: "Gimnasia (M)", promedio: 0.833, pj: 12, pts: 10, estado: "descenso" },
-  { puesto: 30, equipo: "Estudiantes RC", promedio: 0.416, pj: 12, pts: 5, estado: "descenso" }
+  { puesto: 25, equipo: "Newell's", promedio: 1.071, pj: 85, pts: 91, estado: "seguro" },
+  { puesto: 26, equipo: "Banfield", promedio: 1.047, pj: 85, pts: 89, estado: "alerta" },
+  { puesto: 27, equipo: "Sarmiento", promedio: 1.012, pj: 85, pts: 86, estado: "peligro" },
+  { puesto: 28, equipo: "Gimnasia (M)", promedio: 1.000, pj: 12, pts: 12, estado: "peligro" },
+  { puesto: 29, equipo: "Aldosivi", promedio: 0.886, pj: 44, pts: 39, estado: "critico" },
+  { puesto: 30, equipo: "Estudiantes RC", promedio: 0.417, pj: 12, pts: 5, estado: "descenso" }
 ]
 
 // Tabla Anual de Descenso (General) - 2026 en curso (~10-11 fechas)
@@ -789,8 +789,8 @@ export default function AldosiviDashboard() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-green-100 text-sm">
-                    Superar a <strong className="text-white">Sarmiento</strong> (promedio 0.988) - 
-                    diferencia de solo <strong className="text-yellow-400">0.084 puntos</strong>.
+                    Superar a <strong className="text-white">Gimnasia Mendoza</strong> (promedio 1.000) o a <strong className="text-white">Sarmiento</strong> (promedio 1.012) es el objetivo primario.
+                    La diferencia con el puesto 28 es de <strong className="text-yellow-400">0.114 puntos porcentuales</strong>. 
                     Esperar que <strong className="text-white">Gimnasia Mendoza</strong> (si es que la tabla varía) no encadene victorias, 
                     ya que los promedios de los recién ascendidos son muy volátiles por pocos partidos.
                   </p>
