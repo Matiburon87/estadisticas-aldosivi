@@ -202,10 +202,10 @@ const candidatosDT = [
 
 // Próximos partidos — actualizado al 04/04/2026 (12 PJ de liga disputados)
 const fixtureData = [
-  { fecha: "11/04", rival: "Belgrano", tipo: "Visitante", dificultad: "Alta", recomendacion: "Bloque bajo sólido. Zalazar suspendido — cubrir con Moya o Breitenbruch" },
-  { fecha: "18/04", rival: "Racing Club", tipo: "Local", dificultad: "Muy Alta", recomendacion: "Marcajes férreos sobre lanzadores. Sin margen de error" },
+  { fecha: "10/04", rival: "Belgrano", tipo: "Visitante", dificultad: "Alta", recomendacion: "Bloque bajo sólido. Zalazar suspendido — cubrir con Moya o Breitenbruch" },
+  { fecha: "19/04", rival: "Racing Club", tipo: "Local", dificultad: "Muy Alta", recomendacion: "Marcajes férreos sobre lanzadores. Sin margen de error" },
   { fecha: "25/04", rival: "River Plate", tipo: "Visitante", dificultad: "Muy Alta", recomendacion: "Repliegue total. Werner como único escudo viable" },
-  { fecha: "??/05", rival: "Independiente Rivadavia", tipo: "Por definir", dificultad: "Alta", recomendacion: "PARTIDO CLAVE: rival de zona baja. Máxima intensidad y balón parado" }
+  { fecha: "03/05", rival: "Independiente Rivadavia", tipo: "Por definir", dificultad: "Alta", recomendacion: "PARTIDO CLAVE: rival de zona baja. Máxima intensidad y balón parado" }
 ]
 
 // Problemas identificados
