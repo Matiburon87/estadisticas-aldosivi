@@ -13,7 +13,8 @@ import {
 import { 
   TrendingDown, TrendingUp, Users, DollarSign, Target, Shield, 
   AlertTriangle, Activity, Goal, Clock, MapPin, Calendar, Trophy, 
-  AlertCircle, CheckCircle, XCircle, UserCheck, Award, Zap
+  AlertCircle, CheckCircle, XCircle, UserCheck, Award, Zap,
+  Globe, ExternalLink, Newspaper, ShoppingBag, Briefcase
 } from 'lucide-react'
 import { UploadButton } from '@/components/UploadButton'
 
@@ -1072,10 +1073,88 @@ export default function AldosiviDashboard() {
 
       {/* Footer */}
       <footer className="border-t border-green-800/60 bg-green-950/90 mt-12">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between text-sm text-emerald-400 flex-wrap gap-2">
-            <p>Centro de Inteligencia Deportiva &copy; Club Atlético Aldosivi - Ciclo 2026</p>
-            <p>Actualizado: 04 de Abril de 2026 | Fuente: Liga Profesional AFA + fichajes.com + resultados reales (Fecha 13)</p>
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col gap-6 text-sm text-emerald-400">
+
+            {/* Info principal */}
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <p>Centro de Inteligencia Deportiva &copy; Club Atlético Aldosivi - Ciclo 2026</p>
+              <p className="text-xs text-green-500/70">Actualizado: 04 de Abril de 2026 | Fuente: Liga Profesional AFA + fichajes.com + resultados reales (Fecha 13)</p>
+            </div>
+
+            {/* Sitios Amigos */}
+            <div className="border-t border-green-800/40 pt-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Globe className="w-4 h-4 text-yellow-400" />
+                <span className="text-yellow-400 font-bold text-sm uppercase tracking-widest">Sitios Amigos</span>
+                <div className="flex-1 h-px bg-gradient-to-r from-yellow-500/40 to-transparent" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+                {/* Saque de Meta */}
+                <a
+                  href="https://saquedemetamdp.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-blue-900/40 to-blue-800/20 border border-blue-700/40 hover:border-blue-500/70 hover:from-blue-800/60 hover:to-blue-700/30 transition-all duration-300 hover:shadow-lg hover:shadow-blue-900/30 hover:-translate-y-0.5"
+                >
+                  <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-600/30 border border-blue-500/40 flex items-center justify-center group-hover:bg-blue-500/40 transition-colors duration-300">
+                    <Newspaper className="w-4 h-4 text-blue-300" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-white font-semibold text-xs leading-tight">Saque de Meta MDP</p>
+                    <p className="text-blue-300/70 text-xs truncate">Portal deportivo marplatense</p>
+                  </div>
+                  <ExternalLink className="w-3 h-3 text-blue-400/50 group-hover:text-blue-300 transition-colors duration-300 flex-shrink-0" />
+                </a>
+
+                {/* Isadora Store */}
+                <a
+                  href="https://isadora.ninnotech.com/store"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-purple-900/40 to-purple-800/20 border border-purple-700/40 hover:border-purple-500/70 hover:from-purple-800/60 hover:to-purple-700/30 transition-all duration-300 hover:shadow-lg hover:shadow-purple-900/30 hover:-translate-y-0.5"
+                >
+                  <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-purple-600/30 border border-purple-500/40 flex items-center justify-center group-hover:bg-purple-500/40 transition-colors duration-300">
+                    <ShoppingBag className="w-4 h-4 text-purple-300" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-white font-semibold text-xs leading-tight">Isadora Store</p>
+                    <p className="text-purple-300/70 text-xs truncate">Tienda online Ninnotech</p>
+                  </div>
+                  <ExternalLink className="w-3 h-3 text-purple-400/50 group-hover:text-purple-300 transition-colors duration-300 flex-shrink-0" />
+                </a>
+
+                {/* Portfolio */}
+                <a
+                  href="https://portfolio-matias-asaro-dev.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-yellow-900/40 to-yellow-800/20 border border-yellow-700/40 hover:border-yellow-500/70 hover:from-yellow-800/60 hover:to-yellow-700/30 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-900/30 hover:-translate-y-0.5"
+                >
+                  <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-yellow-600/30 border border-yellow-500/40 flex items-center justify-center group-hover:bg-yellow-500/40 transition-colors duration-300">
+                    <Briefcase className="w-4 h-4 text-yellow-300" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-white font-semibold text-xs leading-tight">Portfolio Dev</p>
+                    <p className="text-yellow-300/70 text-xs truncate">Maty_Asaro_Dev · Ninnotech</p>
+                  </div>
+                  <ExternalLink className="w-3 h-3 text-yellow-400/50 group-hover:text-yellow-300 transition-colors duration-300 flex-shrink-0" />
+                </a>
+
+              </div>
+            </div>
+
+            {/* Créditos */}
+            <div className="border-t border-green-800/40 pt-4 flex items-center justify-center">
+              <p className="text-green-500/60 text-xs">
+                Desarrollado con 💚 por{" "}
+                <span className="text-yellow-400/90 font-semibold">Maty_Asaro_Dev</span>
+                <span className="text-green-500/60"> · </span>
+                <span className="text-yellow-400/90 font-semibold">Ninnotech</span>
+              </p>
+            </div>
+
           </div>
         </div>
       </footer>
