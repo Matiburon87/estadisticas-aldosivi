@@ -37,7 +37,7 @@ const clubData = {
   posicionAnual: 29,   // posición en tabla anual 2026
   posicionLiga: 28,    // posición en tabla de promedios
   calificacion: 6.61,  // calificación algorítmica media
-  promedioDescenso: 0.886,
+  promedioDescenso: 0.870,
   puntos: 7,           // pts tabla anual 2026: empate vs Racing (19/04) suma 1 más
   ptsPromedioHistorico: 39, // pts acumulados en sistema de promedios (44 PJ)
   pjPromedioHistorico: 44,  // histórico (sin nuevos partidos en promedio aún)
