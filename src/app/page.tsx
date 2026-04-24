@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend,
-  PieChart, Pie, Cell
+  PieChart, Pie, Cell, LineChart, Line, ReferenceLine
 } from 'recharts'
 import { 
   TrendingDown, TrendingUp, Users, DollarSign, Target, Shield, 
@@ -38,14 +38,14 @@ const clubData = {
   posicionLiga: 28,    // posición en tabla de promedios
   calificacion: 6.61,  // calificación algorítmica media
   promedioDescenso: 0.886,
-  puntos: 6,           // pts tabla anual 2026 (6 empates en 12 PJ de liga)
+  puntos: 7,           // pts tabla anual 2026: empate vs Racing (19/04) suma 1 más
   ptsPromedioHistorico: 39, // pts acumulados en sistema de promedios (44 PJ)
-  pjPromedioHistorico: 44,  // 42 históricos + 2 nuevos liga (sin Copa Argentina)
-  partidosJugados: 12, // PJ liga 2026 (sin Copa Argentina). Actualizado al 04/04
-  diferenciaGol: -10,  // DG liga: GF=3, GC=13 en 12 PJ
+  pjPromedioHistorico: 44,  // histórico (sin nuevos partidos en promedio aún)
+  partidosJugados: 14, // PJ liga 2026 (sin Copa Argentina). Actualizado al 19/04
+  diferenciaGol: -11,  // DG liga: GF=4, GC=15 en 14 PJ (Belgrano +0-1, Racing +1-1)
   xG: 5.4,             // goles esperados temporada
-  fallasPorPJ: 14.8,   // recalculado sobre 12 PJ de liga
-  posesionMedia: 49.8  // recalculado 12 PJ liga: ((50×10)+47+51)/12
+  fallasPorPJ: 14.8,   // mantenido (promedio acumulado)
+  posesionMedia: 47.1  // recalculado 14 PJ: promedio incluye 48% Belgrano y 29% Racing
 }
 
 // Métricas de rendimiento — fuente: PDF "Centro de Datos FM 2026" y "Informe de Inteligencia Deportiva"
@@ -84,25 +84,24 @@ const comparisonData = [
   { name: "River (Líder Posesión)", goles: 1.4, tiros: 5.7, posesion: 65 }
 ]
 
-// Tabla de Promedios de Descenso
+// Tabla de Promedios de Descenso - Fuente: Promiedos (Actualizado Abril 2026)
 const promediosData = [
-  { puesto: 25, equipo: "Newell's", promedio: 1.071, pj: 85, pts: 91, estado: "seguro" },
-  { puesto: 26, equipo: "Banfield", promedio: 1.047, pj: 85, pts: 89, estado: "alerta" },
-  { puesto: 27, equipo: "Sarmiento", promedio: 1.012, pj: 85, pts: 86, estado: "peligro" },
-  { puesto: 28, equipo: "Gimnasia (M)", promedio: 1.000, pj: 12, pts: 12, estado: "peligro" },
-  { puesto: 29, equipo: "Aldosivi", promedio: 0.886, pj: 44, pts: 39, estado: "critico" },
-  { puesto: 30, equipo: "Estudiantes RC", promedio: 0.417, pj: 12, pts: 5, estado: "descenso" }
+  { puesto: 25, equipo: "Newell's", promedio: 1.092, pj: 87, pts: 95, estado: "seguro" },
+  { puesto: 26, equipo: "Atl. Tucumán", promedio: 1.080, pj: 87, pts: 94, estado: "seguro" },
+  { puesto: 27, equipo: "Banfield", promedio: 1.034, pj: 87, pts: 90, estado: "alerta" },
+  { puesto: 28, equipo: "Sarmiento", promedio: 0.989, pj: 87, pts: 86, estado: "peligro" },
+  { puesto: 29, equipo: "Aldosivi", promedio: 0.870, pj: 46, pts: 40, estado: "critico" },
+  { puesto: 30, equipo: "Estudiantes RC", promedio: 0.357, pj: 14, pts: 5, estado: "descenso" }
 ]
 
-// Tabla Anual de Descenso (General) - 2026 en curso (~10-11 fechas)
-// Tabla Anual actualizada al 04/04/2026 (Fecha 12 de liga jugada)
+// Tabla Anual de Descenso (General) - Fuente: Promiedos (Actualizado Abril 2026)
 const tablaAnualData = [
-  { puesto: 25, equipo: "Banfield", pj: 12, difGol: -3, pts: 11, estado: "seguro" },
-  { puesto: 26, equipo: "Atlético Tucumán", pj: 12, difGol: -4, pts: 9, estado: "alerta" },
-  { puesto: 27, equipo: "Newell's", pj: 12, difGol: -5, pts: 9, estado: "peligro" },
-  { puesto: 28, equipo: "Dep. Riestra", pj: 12, difGol: -6, pts: 7, estado: "peligro" },
-  { puesto: 29, equipo: "Aldosivi", pj: 12, difGol: -10, pts: 6, estado: "critico" },
-  { puesto: 30, equipo: "Estudiantes RC", pj: 12, difGol: -10, pts: 5, estado: "descenso" }
+  { puesto: 25, equipo: "Banfield",           pj: 14, difGol: -3,  pts: 14, estado: "seguro"   },
+  { puesto: 26, equipo: "Newell's",           pj: 14, difGol: -12, pts: 13, estado: "seguro"   },
+  { puesto: 27, equipo: "Atl. Tucumán",       pj: 14, difGol: -6,  pts: 10, estado: "peligro"  },
+  { puesto: 28, equipo: "Dep. Riestra",       pj: 14, difGol: -9,  pts: 7,  estado: "peligro"  },
+  { puesto: 29, equipo: "Aldosivi",           pj: 14, difGol: -11, pts: 7,  estado: "critico"  },
+  { puesto: 30, equipo: "Estudiantes RC",     pj: 14, difGol: -16, pts: 5,  estado: "descenso" }
 ]
 
 // Jugadores con datos biométricos verificados (fuente: PDFs de análisis FM 2026)
@@ -128,7 +127,7 @@ const jugadoresDestacados = [
   { nombre: "Junior Arias", posicion: "Delantero", edad: 32, altura: "1.76m", peso: "80kg", rating: 6.0, partidos: 7, key: false, perfil: "Pivotaje y técnica" }
 ]
 
-// Partidos de la temporada — actualizado al 04/04/2026 (13 PJ)
+// Partidos de la temporada — actualizado al 19/04/2026 (15 PJ en total, 14 liga + 1 Copa)
 const partidosData = [
   { fecha: "22/01", rival: "Defensa y Justicia", resultado: "0-0", tipo: "Local", competencia: "Liga", nota: "Empate conservador en debut" },
   { fecha: "28/01", rival: "Barracas Central", resultado: "0-0", tipo: "Local", competencia: "Liga", nota: "Rival directo por permanencia" },
@@ -142,7 +141,27 @@ const partidosData = [
   { fecha: "16/03", rival: "Huracán", resultado: "0-0", tipo: "Local", competencia: "Liga", nota: "Empate estéril en casa" },
   { fecha: "22/03", rival: "Sarmiento (J)", resultado: "0-2", tipo: "Visitante", competencia: "Liga", nota: "Derrota vs rival directo con 60 min en superioridad numérica" },
   { fecha: "31/03", rival: "Argentinos Jrs", resultado: "0-2", tipo: "Local", competencia: "Liga", nota: "Debut Damonte. Pos: 47% | 6 tiros. Goles: Morales (28') y R.Riquelme (37')" },
-  { fecha: "04/04", rival: "Est. Río Cuarto", resultado: "0-0", tipo: "Local", competencia: "Liga", nota: "Empate con 10 desde min.?. Zalazar expulsado. 15 faltas. Algo mejor en ataque (11 tiros)" }
+  { fecha: "04/04", rival: "Est. Río Cuarto", resultado: "0-0", tipo: "Local", competencia: "Liga", nota: "Empate con 10 desde min.?. Zalazar expulsado. 15 faltas. Algo mejor en ataque (11 tiros)" },
+  { fecha: "10/04", rival: "Belgrano", resultado: "0-1", tipo: "Visitante", competencia: "Liga", nota: "Gol de Zelarayán (28'). Aldosivi niveló posesión (48%), un disparo al travesaño. 5 amarillas." },
+  { fecha: "19/04", rival: "Racing Club", resultado: "1-1", tipo: "Local", competencia: "Liga", nota: "Gol de Anso (43'). Empate agónico de Zaracho (83'). Sólo 29% posesión vs 71% Racing." }
+]
+
+// Datos partido a partido para gráfico de tendencias temporales (sólo liga)
+const tendenciasData = [
+  { partido: "P1", fecha: "22/01", rival: "vs Def.J", golesFavor: 0, golesContra: 0, puntos: 1, posesion: 51, tirosPuerta: 3, faltas: 13, resultado: "E" },
+  { partido: "P2", fecha: "28/01", rival: "vs Barracas", golesFavor: 0, golesContra: 0, puntos: 1, posesion: 52, tirosPuerta: 3, faltas: 14, resultado: "E" },
+  { partido: "P3", fecha: "02/02", rival: "@ Gim.LP", golesFavor: 1, golesContra: 3, puntos: 0, posesion: 46, tirosPuerta: 2, faltas: 16, resultado: "D" },
+  { partido: "P4", fecha: "07/02", rival: "vs R.Central", golesFavor: 1, golesContra: 1, puntos: 1, posesion: 50, tirosPuerta: 4, faltas: 14, resultado: "E" },
+  { partido: "P5", fecha: "12/02", rival: "@ Tigre", golesFavor: 0, golesContra: 1, puntos: 0, posesion: 48, tirosPuerta: 0, faltas: 15, resultado: "D" },
+  { partido: "P6", fecha: "22/02", rival: "@ Unión", golesFavor: 0, golesContra: 1, puntos: 0, posesion: 47, tirosPuerta: 2, faltas: 14, resultado: "D" },
+  { partido: "P7", fecha: "02/03", rival: "@ Banfield", golesFavor: 0, golesContra: 2, puntos: 0, posesion: 50, tirosPuerta: 3, faltas: 15, resultado: "D" },
+  { partido: "P8", fecha: "11/03", rival: "@ Atl.Tuc", golesFavor: 1, golesContra: 1, puntos: 1, posesion: 51, tirosPuerta: 4, faltas: 15, resultado: "E" },
+  { partido: "P9", fecha: "16/03", rival: "vs Huracán", golesFavor: 0, golesContra: 0, puntos: 1, posesion: 49, tirosPuerta: 3, faltas: 14, resultado: "E" },
+  { partido: "P10", fecha: "22/03", rival: "@ Sarmiento", golesFavor: 0, golesContra: 2, puntos: 0, posesion: 45, tirosPuerta: 2, faltas: 17, resultado: "D" },
+  { partido: "P11", fecha: "31/03", rival: "vs Arg.Jrs", golesFavor: 0, golesContra: 2, puntos: 0, posesion: 47, tirosPuerta: 6, faltas: 13, resultado: "D" },
+  { partido: "P12", fecha: "04/04", rival: "vs Est.RC", golesFavor: 0, golesContra: 0, puntos: 1, posesion: 51, tirosPuerta: 11, faltas: 15, resultado: "E" },
+  { partido: "P13", fecha: "10/04", rival: "@ Belgrano", golesFavor: 0, golesContra: 1, puntos: 0, posesion: 48, tirosPuerta: 5, faltas: 15, resultado: "D" },
+  { partido: "P14", fecha: "19/04", rival: "vs Racing", golesFavor: 1, golesContra: 1, puntos: 1, posesion: 29, tirosPuerta: 4, faltas: 12, resultado: "E" }
 ]
 
 // Candidatos a Director Técnico
@@ -201,11 +220,9 @@ const candidatosDT = [
   }
 ]
 
-// Próximos partidos — actualizado al 04/04/2026 (12 PJ de liga disputados)
+// Próximos partidos — actualizado al 19/04/2026 (14 PJ de liga disputados)
 const fixtureData = [
-  { fecha: "10/04", rival: "Belgrano", tipo: "Visitante", dificultad: "Alta", recomendacion: "Bloque bajo sólido. Zalazar suspendido — cubrir con Moya o Breitenbruch" },
-  { fecha: "19/04", rival: "Racing Club", tipo: "Local", dificultad: "Muy Alta", recomendacion: "Marcajes férreos sobre lanzadores. Sin margen de error" },
-  { fecha: "25/04", rival: "River Plate", tipo: "Visitante", dificultad: "Muy Alta", recomendacion: "Repliegue total. Werner como único escudo viable" },
+  { fecha: "25/04", rival: "River Plate", tipo: "Visitante", dificultad: "Muy Alta", recomendacion: "Repliegue total heroico. Damonte apuesta por resistencia y el factor psicológico del cero" },
   { fecha: "03/05", rival: "Independiente Rivadavia", tipo: "Por definir", dificultad: "Alta", recomendacion: "PARTIDO CLAVE: rival de zona baja. Máxima intensidad y balón parado" }
 ]
 
@@ -257,6 +274,7 @@ export default function AldosiviDashboard() {
     golesPorPartido: 0.30,
     partidosJugados: clubData.partidosJugados
   });
+  const [selectedStat, setSelectedStat] = useState<'golesFavor' | 'golesContra' | 'puntos' | 'posesion' | 'tirosPuerta' | 'faltas'>('golesFavor');
 
   useEffect(() => {
     fetch('/api/dashboard')
@@ -385,12 +403,13 @@ export default function AldosiviDashboard() {
               <div className="flex items-start gap-4">
                 <AlertCircle className="w-8 h-8 text-red-400 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg font-bold text-red-300">ALERTA MÁXIMA: Zona de Descenso Directo (12 PJ)</h3>
+                  <h3 className="text-lg font-bold text-red-300">ALERTA MÁXIMA: Zona de Descenso Directo (14 PJ)</h3>
                   <p className="text-green-100 mt-2">
-                    Aldosivi ocupa el <strong className="text-red-400">puesto 29º de 30</strong> en la tabla anual con <strong className="text-yellow-400">6 puntos en 12 PJ</strong> y
+                    Aldosivi ocupa el <strong className="text-red-400">puesto 29º de 30</strong> en la tabla anual con <strong className="text-yellow-400">7 puntos en 14 PJ</strong> y
                     un promedio histórico de <strong className="text-white">{clubData.promedioDescenso}</strong>.
-                    Bajo Damonte (debut 31/03): derrota 0-2 vs Argentinos Jrs y empate 0-0 con Estudiantes RC
-                    (Zalazar expulsado). Solo <strong className="text-red-400">0 goles en los últimos 5 partidos de liga</strong> —
+                    Bajo Damonte (desde 31/03): derrota 0-2 vs Arg. Jrs, empate 0-0 vs Est. RC,
+                    derrota 0-1 en Belgrano (gol de Zelarayán) y empate 1-1 vs Racing (Anso 43', cedido Zaracho 83').
+                    Solo <strong className="text-red-400">1 gol anotado en los últimos 4 partidos de liga</strong> —
                     la sequía ofensiva sigue siendo el problema existencial del equipo.
                   </p>
                 </div>
@@ -547,7 +566,7 @@ export default function AldosiviDashboard() {
                   <Activity className="w-5 h-5" />
                   Métricas de Rendimiento (Estilo FM)
                 </CardTitle>
-                <CardDescription>Datos actualizados al 04 de Abril de 2026 (12 PJ liga) — Corregidos vía fichajes.com + resultados reales</CardDescription>
+                <CardDescription>Datos actualizados al 19 de Abril de 2026 (14 PJ liga) — Corregidos vía fichajes.com + Promiedos + resultados reales</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
@@ -720,7 +739,7 @@ export default function AldosiviDashboard() {
                   <Calendar className="w-5 h-5 text-orange-400" />
                   Tabla Anual 2026 - Zona Baja (2do Descenso)
                 </CardTitle>
-                <CardDescription>Puntos acumulados en el año en curso (Inició en Enero)</CardDescription>
+                <CardDescription>Puntos acumulados en el año en curso (Inició en Enero) — Actualizado: 19/04/2026 (Fecha 14)</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
@@ -944,7 +963,7 @@ export default function AldosiviDashboard() {
                   <Calendar className="w-5 h-5" />
                   Partidos Disputados (Actualizado)
                 </CardTitle>
-                <CardDescription>Temporada Apertura 2026 — Última actualización: 04/04/2026 (12 PJ liga / 13 incl. Copa Argentina)</CardDescription>
+                <CardDescription>Temporada Apertura 2026 — Última actualización: 19/04/2026 (14 PJ liga / 15 incl. Copa Argentina)</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
@@ -999,7 +1018,103 @@ export default function AldosiviDashboard() {
               </CardContent>
             </Card>
 
-            {/* Próximos Partidos */}
+            {/* Gráfico de Tendencias Temporales */}
+            <Card className="bg-green-900/40 border-green-800/60">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-emerald-400" />
+                  Tendencias Temporales — Partido a Partido
+                </CardTitle>
+                <CardDescription>Evolución de estadísticas a lo largo de la temporada (14 PJ liga)</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {/* Selector de estadística */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {([
+                    { key: 'golesFavor', label: 'Goles a Favor', color: '#22c55e' },
+                    { key: 'golesContra', label: 'Goles en Contra', color: '#ef4444' },
+                    { key: 'puntos', label: 'Puntos', color: '#eab308' },
+                    { key: 'posesion', label: 'Posesión %', color: '#3b82f6' },
+                    { key: 'tirosPuerta', label: 'Tiros al Arco', color: '#f97316' },
+                    { key: 'faltas', label: 'Faltas Cometidas', color: '#8b5cf6' },
+                  ] as const).map(({ key, label, color }) => (
+                    <button
+                      key={key}
+                      onClick={() => setSelectedStat(key)}
+                      style={selectedStat === key ? { backgroundColor: color, borderColor: color } : {}}
+                      className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 ${
+                        selectedStat === key
+                          ? 'text-white shadow-lg scale-105'
+                          : 'bg-green-900/50 border-green-700 text-green-200 hover:border-green-400 hover:text-white'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Leyenda de resultado */}
+                <div className="flex items-center gap-4 mb-4 text-xs text-green-300">
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-green-500 inline-block"></span> Victoria</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span> Empate</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-red-500 inline-block"></span> Derrota</span>
+                  <span className="flex items-center gap-1"><span className="w-0.5 h-4 bg-yellow-400/60 inline-block"></span> Damonte asume (P11)</span>
+                </div>
+
+                <ResponsiveContainer width="100%" height={320}>
+                  <LineChart data={tendenciasData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#166534" opacity={0.5} />
+                    <XAxis
+                      dataKey="partido"
+                      tick={{ fill: '#bbf7d0', fontSize: 11 }}
+                      tickFormatter={(val, idx) => tendenciasData[idx]?.rival ?? val}
+                      interval={0}
+                      angle={-35}
+                      textAnchor="end"
+                      height={60}
+                    />
+                    <YAxis tick={{ fill: '#bbf7d0', fontSize: 11 }} />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: '#052e16', border: '1px solid #166534', borderRadius: '8px', fontSize: '12px' }}
+                      labelStyle={{ color: '#f1f5f9', fontWeight: 'bold' }}
+                      formatter={(value: number, name: string) => [value, name]}
+                      labelFormatter={(label: string, payload: any[]) => {
+                        const d = payload?.[0]?.payload;
+                        return d ? `${d.partido} • ${d.fecha} • ${d.rival}` : label;
+                      }}
+                    />
+                    {/* Línea vertical marcando el inicio de Damonte */}
+                    <ReferenceLine x="P11" stroke="#eab308" strokeDasharray="4 2" label={{ value: 'Damonte', fill: '#eab308', fontSize: 10, position: 'insideTopRight' }} />
+                    <Line
+                      type="monotone"
+                      dataKey={selectedStat}
+                      stroke={
+                        selectedStat === 'golesFavor' ? '#22c55e' :
+                        selectedStat === 'golesContra' ? '#ef4444' :
+                        selectedStat === 'puntos' ? '#eab308' :
+                        selectedStat === 'posesion' ? '#3b82f6' :
+                        selectedStat === 'tirosPuerta' ? '#f97316' : '#8b5cf6'
+                      }
+                      strokeWidth={2.5}
+                      dot={(props: any) => {
+                        const { cx, cy, payload } = props;
+                        const dotColor = payload.resultado === 'V' ? '#22c55e' : payload.resultado === 'E' ? '#eab308' : '#ef4444';
+                        return <circle key={payload.partido} cx={cx} cy={cy} r={5} fill={dotColor} stroke="#052e16" strokeWidth={1.5} />;
+                      }}
+                      activeDot={{ r: 7, strokeWidth: 2 }}
+                      name={
+                        selectedStat === 'golesFavor' ? 'Goles a Favor' :
+                        selectedStat === 'golesContra' ? 'Goles en Contra' :
+                        selectedStat === 'puntos' ? 'Puntos' :
+                        selectedStat === 'posesion' ? 'Posesión %' :
+                        selectedStat === 'tirosPuerta' ? 'Tiros al Arco' : 'Faltas Cometidas'
+                      }
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
             <Card className="bg-green-900/40 border-green-800/60">
               <CardHeader>
                 <CardTitle className="text-white flex items-center gap-2">
@@ -1079,7 +1194,8 @@ export default function AldosiviDashboard() {
             {/* Info principal */}
             <div className="flex items-center justify-between flex-wrap gap-2">
               <p>Centro de Inteligencia Deportiva &copy; Club Atlético Aldosivi - Ciclo 2026</p>
-              <p className="text-xs text-green-500/70">Actualizado: 04 de Abril de 2026 | Fuente: Liga Profesional AFA + fichajes.com + resultados reales (Fecha 13)</p>
+              <p className="text-xs text-green-500/70">Actualizado: 19 de Abril de 2026 | Fuente: Liga Profesional AFA + fichajes.com + resultados reales (Fecha 15)</p>
+
             </div>
 
             {/* Sitios Amigos */}
