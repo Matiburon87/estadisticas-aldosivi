@@ -109,22 +109,24 @@ const jugadoresDestacados = [
   { nombre: "Axel Werner", posicion: "Portero", edad: 30, altura: "1.92m", peso: "85kg", rating: 6.5, partidos: 6, minutos: 540, golesConcedidos: 6, key: true, perfil: "Envergadura / Derecha" },
   { nombre: "Sebastián Moyano", posicion: "Portero", edad: 35, altura: "1.88m", rating: 6.0, partidos: 2, key: false, perfil: "Veterano / Líder vestuario" },
   { nombre: "Ignacio Chicco", posicion: "Portero", edad: 29, altura: "1.84m", peso: "81kg", rating: 6.1, partidos: 2, key: false, perfil: "Ágil / Izquierda" },
-  { nombre: "Joaquín Novillo", posicion: "Defensa Central", edad: 28, altura: "1.90m", peso: "86kg", rating: 6.4, goles: 1, partidos: 9, key: true, perfil: "Central Zurdo" },
   { nombre: "Nicolás Zalazar", posicion: "Defensa Central", edad: 29, altura: "1.85m", peso: "80kg", rating: 6.8, partidos: 9, key: true, perfil: "Central / Derecha" },
   { nombre: "Santiago Moya", posicion: "Defensa Central", edad: 22, altura: "1.87m", peso: "80kg", rating: 6.2, partidos: 6, key: false, perfil: "Potente / Derecha" },
   { nombre: "Néstor Breitenbruch", posicion: "Defensa", edad: 30, altura: "1.78m", rating: 6.0, partidos: 4, key: false, perfil: "Polivalente / Central o Flanco" },
   { nombre: "Emanuel Iñíguez", posicion: "Lateral Der.", edad: 29, altura: "1.77m", rating: 5.9, partidos: 8, key: false, perfil: "Lateral Defensivo" },
   { nombre: "Fernando Román", posicion: "Lateral Izq.", edad: 27, altura: "1.80m", rating: 6.0, partidos: 7, key: false, perfil: "Lateral Defensivo" },
-  { nombre: "Roberto Bochi", posicion: "Mediocampista", edad: 38, altura: "1.75m", rating: 5.8, partidos: 8, key: false, perfil: "Recuperador (Obsoleto para transiciones)" },
+  { nombre: "Lucas Rodríguez", posicion: "Lateral Izq.", edad: 32, altura: "1.75m", rating: 6.1, partidos: 10, key: false, perfil: "Lateral Experimentado" },
   { nombre: "Esteban Rolón", posicion: "Mediocampista", edad: 30, altura: "1.75m", rating: 6.0, partidos: 7, key: false, perfil: "Pivote Defensivo" },
   { nombre: "Federico Gino", posicion: "Mediocampista", edad: 33, altura: "1.73m", rating: 6.3, goles: 1, partidos: 8, key: true, perfil: "Todoterreno / Capitán" },
-  { nombre: "Tomás Fernández", posicion: "Delantero/Extremo", edad: 28, altura: "1.74m", rating: 6.6, goles: 1, asistencias: 1, partidos: 9, tarjetasAmarillas: 1, key: true, perfil: "Interior Ofensivo (Líder ofensivo del equipo)" },
+  { nombre: "Martín García", posicion: "Mediocampista", edad: 20, altura: "1.82m", rating: 6.0, partidos: 1, key: false, perfil: "Contención / Juvenil" },
+  { nombre: "Matías Morello", posicion: "Mediocampista", edad: 25, altura: "1.85m", rating: 6.0, partidos: 2, key: false, perfil: "Volante central / Zaguero" },
+  { nombre: "Tomás Fernández", posicion: "Delantero/Extremo", edad: 28, altura: "1.74m", rating: 6.6, goles: 1, asistencias: 1, partidos: 9, tarjetasAmarillas: 1, key: true, perfil: "Interior Ofensivo" },
   { nombre: "Natanael Guzmán", posicion: "Extremo", edad: 26, altura: "1.72m", rating: 6.2, partidos: 7, key: true, perfil: "Desequilibrio / Aceleración" },
-  { nombre: "Facundo De la Vega", posicion: "Centrodelantero", edad: 22, altura: "1.91m", peso: "80kg", rating: 6.0, asistencias: 1, partidos: 5, key: true, perfil: "Alcance aéreo extremo (Subexplotado)" },
+  { nombre: "Alan Sosa", posicion: "Extremo", edad: 23, altura: "1.70m", rating: 6.3, partidos: 12, key: true, perfil: "Extremo zurdo / Desequilibrio" },
+  { nombre: "Felipe Anso", posicion: "Delantero", edad: 19, altura: "1.80m", rating: 6.5, goles: 1, partidos: 2, key: true, perfil: "Promesa / Velocidad" },
+  { nombre: "Facundo De la Vega", posicion: "Centrodelantero", edad: 22, altura: "1.91m", peso: "80kg", rating: 6.0, asistencias: 1, partidos: 5, key: true, perfil: "Alcance aéreo extremo" },
   { nombre: "Alejandro Villarreal", posicion: "Centrodelantero", edad: 20, altura: "1.89m", peso: "85kg", rating: 5.9, partidos: 4, key: true, perfil: "Potencia física" },
   { nombre: "Nicolás Cordero", posicion: "Centrodelantero", edad: 24, altura: "1.86m", rating: 6.1, partidos: 6, key: true, perfil: "Finalizador / Referencia de área" },
-  { nombre: "Agustín Palavecino", posicion: "Extremo", edad: 23, altura: "1.85m", peso: "72kg", rating: 5.9, partidos: 5, key: false, perfil: "Buen pie, media distancia" },
-  { nombre: "Junior Arias", posicion: "Delantero", edad: 32, altura: "1.76m", peso: "80kg", rating: 6.0, partidos: 7, key: false, perfil: "Pivotaje y técnica" }
+  { nombre: "Agustín Palavecino", posicion: "Extremo", edad: 23, altura: "1.85m", peso: "72kg", rating: 5.9, partidos: 5, key: false, perfil: "Buen pie, media distancia" }
 ]
 
 // Partidos de la temporada — actualizado al 19/04/2026 (15 PJ en total, 14 liga + 1 Copa)
@@ -269,7 +271,7 @@ const COLORS = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6'
 
 export default function AldosiviDashboard() {
   const [dbStats, setDbStats] = useState({
-    golesTotales: clubData.diferenciaGol, 
+    golesTotales: 4, 
     promedioPosesion: 49,
     golesPorPartido: 0.30,
     partidosJugados: clubData.partidosJugados
@@ -369,9 +371,9 @@ export default function AldosiviDashboard() {
               <CardContent className="pt-4">
                 <div className="flex items-center gap-2">
                   <Activity className="w-5 h-5 text-orange-400" />
-                  <span className="text-green-200 text-xs">Goles (Históricos)</span>
+                  <span className="text-green-200 text-xs">Goles (Favor - Contra)</span>
                 </div>
-                <p className="text-2xl font-bold text-green-400 mt-2">{Number(dbStats.golesTotales).toFixed(2)}</p>
+                <p className="text-2xl font-bold text-green-400 mt-2">4 - 15 = <span className="text-red-400">-11</span></p>
               </CardContent>
             </Card>
             <Card className="bg-green-900/40 border-green-800/60">
